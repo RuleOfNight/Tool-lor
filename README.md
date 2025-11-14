@@ -7,8 +7,23 @@ document.querySelectorAll("div.col-12.col-md-4.classroom-section-item").forEach(
 <p id="code_2">Auto đăng ký lớp lý thuyết</p>
 
 ```javascript
-var id="Nhập ID lớp học phần cần đăng ký vào đây";
-var activeTool=1,inter=setInterval(()=>{if(!activeTool){clearInterval(inter);return}document.getElementById(id).click(),document.getElementById("btnDangKyLopHocPhanDaChon").click()},500);
+var id= "Nhập ID nhóm lớp ở đây";
+var activeTool = true;
+var minDelay = 200, maxDelay = 1200, skipP = 0.2;
+
+(async function loop(){
+  while(activeTool){
+    let d = Math.floor(Math.random()*(maxDelay-minDelay+1))+minDelay;
+    await new Promise(r=>setTimeout(r,d));
+    if(Math.random() < skipP) { console.log('skip'); continue; }
+    try {
+      document.getElementById(id)?.click();
+      document.getElementById("btnDangKyLopHocPhanDaChon")?.click();
+      console.log('clicked', new Date().toISOString());
+    } catch(e){ console.warn('err',e); }
+  }
+})();
+
 ```
 
 ### <p style="color: #11ff55">Môn học có nhóm (Lý thuyết + Thực hành)</p>
@@ -23,5 +38,24 @@ document.querySelectorAll("div.col-12.col-md-3.classroom-section-item.box-hocpha
 ```javascript
 var id_nhom = 'Nhập ID nhóm lớp ở đây';
 var id_lop = 'Nhập ID lớp thực hành ở đây';
-var activeTool=1,inter=setInterval(()=>{if(!activeTool){clearInterval(inter);return}document.getElementById(id_nhom).click(),document.getElementById(id_lop).click(),document.getElementById("btnDangKyNhomLop").click(),document.getElementById("btnDangKyLopHocPhanDaChon").click()},500);
+
+var activeTool = 1;
+var minD = 300, maxD = 1200, skipP = 0.18;
+
+(async function loop(){
+  while(activeTool){
+    let d = Math.random()*(maxD-minD)+minD;
+    await new Promise(r=>setTimeout(r, d));
+    if(Math.random() < skipP){ console.log('skip'); continue; }
+
+    try{
+      document.getElementById(id_nhom)?.click();
+      document.getElementById(id_lop)?.click();
+      document.getElementById("btnDangKyNhomLop")?.click();
+      document.getElementById("btnDangKyLopHocPhanDaChon")?.click();
+      console.log('clicked', new Date().toISOString());
+    }catch(e){ console.warn('err', e); }
+  }
+})();
+
 ```
